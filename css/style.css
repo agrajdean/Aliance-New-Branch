@@ -302,7 +302,7 @@ body {
 }
 
 .subpage-header-blog {
-  background-image: url(/img/blog/blog-header.jpg);
+  background-image: url(../img/blog/blog-header.jpg);
   padding: 3.125rem 0 3.125rem;
   display: block;
 }
