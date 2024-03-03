@@ -2,7 +2,7 @@
       <div class="bg-grey section-cta">
         <img src="img/cta.png" alt="call to action" class="cta-image" />
         <div class="cta-form-wrapper container">
-          <form action="#" class="cta-form">
+          <form action="handler.php" method="POST" class="cta-form">
             <h2 class="section-title cta-form-title">Хотите сотрудничать?</h2>
             <p class="cta-form-text">
               Оставьте заявку, наш менеджер свяжется с Вами в ближайшее время
@@ -15,6 +15,7 @@
                   id="user-name"
                   type="text"
                   class="input"
+                  name="username"
                   placeholder=" "
                 />
                 <label class="input-group-label" for="user-name">Имя</label>
@@ -23,6 +24,7 @@
                 <input
                   id="user-phone"
                   type="tel"
+                  name="userphone"
                   class="input"
                   placeholder=" "
                 />
@@ -57,7 +59,7 @@
           <svg class="logo-svg footer-logo">
             <use href="img/sprite.svg#logo"></use>
           </svg>
-          <a href="tel:+74996861014" class="footer-phone">+7 (499) 686-10-14</a>
+          <a href="tel:+79996861014" class="footer-phone">+7 (999) 686-10-14</a>
           <div class="footer-info">
             <svg class="address-icon" width="24" height="24">
               <use href="img/sprite.svg#address"></use>
@@ -135,14 +137,14 @@
             <ul class="footer-menu-list">
               <li class="footer-menu-item">
                 <a
-                  href="./about.html"
+                  href="./about.php"
                   class="footer-menu-link footer-menu-link-bold"
                   >О компании</a
                 >
               </li>
               <li class="footer-menu-item">
                 <a
-                  href="./blog.html"
+                  href="./blog.php"
                   class="footer-menu-link footer-menu-link-bold"
                   >Новости</a
                 >
