@@ -126,7 +126,7 @@ const swiperBlog = new Swiper(".blog-slider", {
     },
   },
 });
-
+// Модальное окно
 const modal = document.querySelector(".modal");
 const modalDialog = document.querySelector(".modal-dialog");
 
@@ -145,5 +145,118 @@ document.addEventListener("click", (event) => {
 document.addEventListener("keyup", (event) => {
   if (event.key == "Escape" && modal.classList.contains("is-open")) {
     modal.classList.toggle("is-open");
+  }
+});
+// Валидация формы -- Имя --- Телефон
+const forms = document.querySelectorAll("form"); // Собираем все формы
+forms.forEach((form) => {
+  const validation = new JustValidate(form, {
+    errorFieldCssClass: "is-invalid",
+  });
+  validation
+    .addField("[name=username]", [
+      {
+        rule: "required",
+        errorMessage: "Укажите имя",
+      },
+      {
+        rule: "maxLength",
+        value: 50,
+        errorMessage: "Максимально 50 символов",
+      },
+    ])
+    .addField("[name=userphone]", [
+      {
+        rule: "required",
+        errorMessage: "Укажите телефон",
+      },
+    ])
+    .onSuccess((event) => {
+      const thisForm = event.target; // наша форма
+      const formData = new FormData(thisForm); // данные из нашей формы
+      const ajaxSend = (formData) => {
+        fetch(thisForm.getAttribute("action"), {
+          method: thisForm.getAttribute("method"),
+          body: formData,
+        }).then((response) => {
+          if (response.ok) {
+            thisForm.reset();
+            alert("Форма отправлена!");
+          } else {
+            alert("Ошибка. Текст ошибки: ".response.statusText);
+          }
+        });
+      };
+      ajaxSend(formData);
+    });
+});
+// Маска ввода номера телефона
+
+/* Создаём префикс +7, даже если вводят 8 или 9 */
+const prefixNumber = (str) => {
+  /* если вводят семёрку, добавляем ей скобку */
+  if (str === "7") {
+    return "7 (";
+  }
+  /* если вводят восмёрку, ставим вместо неё +7 ( */
+  if (str === "8") {
+    return "+7 (";
+  }
+  /* если пишут девятку, заменяем на +7 (9 */
+  if (str === "9") {
+    return "+7 (9";
+  }
+  /* в других случаях просто 7 ( */
+  return "7 (";
+}; /* префикс в любом случае будет +7 () */
+
+/* Ловим события ввода в любом поле */
+document.addEventListener("input", (e) => {
+  /* Проверяем что это поле имеет класс phone-mask */
+  if (e.target.classList.contains("phone-mask")) {
+    /* поле с телефоном помещаем в переменную input */
+    const input = e.target;
+    /* вставляем плюс в начале номера */
+    const value = input.value.replace(/\D+/g, "");
+    /* длина номера 11 символов */
+    const numberLength = 11;
+    /* Создаём переменную куда будем записывать номер */
+    let result;
+    /* Если пользователь ввёл 8... */
+    if (input.value.includes("+8") || input.value[0] === "8") {
+      /* Стираем восмёрку */
+      result = "";
+    } else {
+      /* Оставляем плюсик в поле */
+      result = "+";
+    }
+
+    /* Запускаем цикл, где переберём каждую цифру от 0 до 11 */
+    for (let i = 0; i < value.length && i < numberLength; i++) {
+      switch (i) {
+        case 0:
+          /* в самом начале ставим префикс +7 ( */
+          result += prefixNumber(value[i]);
+          continue;
+        case 4:
+          /* добавляем после "+7 (" круглую скобку ")" */
+          result += ") ";
+          break;
+        case 7:
+          /* дефис после седьмого символа */
+          result += "- ";
+          break;
+        case 9:
+          /* ещё дефис */
+          result += "- ";
+          break;
+        default:
+          break;
+      }
+      /* на каждом шаге цикла добавляем новую цифру к номеру */
+      result += value[i];
+    }
+    /* итог: номер в формате +7 (999) 123-45-67 */
+    input.value = result;
   }
 });

@@ -1,4 +1,4 @@
-<section class="cta">
+  <section class="cta">
       <div class="bg-grey section-cta">
         <img src="img/cta.png" alt="call to action" class="cta-image" />
         <div class="cta-form-wrapper container">
@@ -27,7 +27,7 @@
                   id="user-phone"
                   type="tel"
                   name="userphone"
-                  class="input"
+                  class="input phone-mask"
                   placeholder=" "
                   maxlength="30"
                   required
@@ -196,7 +196,7 @@
           ответит на все интересующие вопросы и поможем даже в самых сложных
           случаях!
         </p>
-        <form action="#" class="modal-form">
+        <form action="handler.php" method="POST" class="modal-form">
           <div class="input-group-wrapper input-group-vertical">
             <div class="input-group modal-input-group">
               <input
@@ -204,8 +204,9 @@
                 type="text"
                 class="input modal-input"
                 placeholder=" "
+                name="username"
               />
-              <label class="input-group-label modal-input-label" for="user-name"
+              <label class="input-group-label modal-input-label" for="modal-user-name"
                 >Имя</label
               >
             </div>
@@ -214,6 +215,7 @@
                 id="modal-user-phone"
                 type="tel"
                 class="input modal-input"
+                name="userphone"
                 placeholder=" "
               />
               <label
@@ -243,6 +245,7 @@
     </div>
     <!-- /.modal -->
     <script src="js/swiper-bundle.min.js"></script>
+    <script src="js/just-validate.production.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
